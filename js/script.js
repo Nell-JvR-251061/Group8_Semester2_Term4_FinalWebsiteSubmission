@@ -83,7 +83,7 @@ const Movielist = [];
 
     }
 
-    DisplayMovies();
+    //DisplayMovies();
 
 }();
 
