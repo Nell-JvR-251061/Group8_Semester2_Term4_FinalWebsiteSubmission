@@ -18,42 +18,28 @@
 <body>
 
     <!--Responsive navbar-->
-    <nav class="navbar navbar-expand-lg fixed-top bg-body-secondary">
-        <div class="container-fluid">
-            <!--Words "Navbar" replaced with application logo, with max width set to 150px-->
-            <a class="navbar-brand" href="#"><img src="../assets/imgs/Logo.png" alt="Loge"
-                    style="max-width: 150px; margin-left: 10px;"></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
-                aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-                <!--List items to planned site pages-->
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Movies</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Pricing</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Your List</a>
-                    </li>
-                    <!--Disabled list item [May delete]-->
-                    <!-- <li class="nav-item">
-          <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-        </li> -->
-                </ul>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
-            </div>
-        </div>
-    </nav>
+<nav class="navbar navbar-expand-lg fixed-top bg-body-secondary custom-navbar">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      <img src="../assets/imgs/Logo.png" alt="Logo" style="max-width: 150px; margin-left: 10px;">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+      <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Movies</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Pricing</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Your List</a></li>
+      </ul>
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+        <button class="btn btn-outline-success" type="submit">Login</button>
+      </form>
+    </div>
+  </div>
+</nav>
 
 
 
@@ -79,7 +65,7 @@
                                 <img src="../assets/imgs/Star 4.png" alt="" style="height:20px;margin-bottom:6px;">
                                 <img src="../assets/imgs/Subtract.png" alt="" style="height:20px;margin-bottom:6px;">
                             </p>
-                            <p><strong>This is a synopsis of the film:</strong></p>
+                            <p><strong>Description:</strong></p>
                             <p class="mb-3">In a world where the seas have swallowed nearly everything, a lone keeper tends to the final lighthouse—its beam the last signal of humanity’s presence. When a mysterious signal flickers across the horizon, he’s forced to confront the haunting question: is he truly the last one left, or has something else found him first?</p>
                             <button class="btn btn-dark w-100 mb-2">Watch</button>
                             <button class="btn btn-outline-dark w-100">Save for Later</button>
