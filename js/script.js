@@ -111,18 +111,21 @@ function DisplayMovies() {
 
     Movielist.forEach(movie => {
         $('#movieCards').append(`
+            
              <div class ="col-md-3">
-                 <div class="card list-card">
-                     <img src="${movie.image}" class="card-img-top list-card-img-top" alt="...">
-                     <div class="card-body list-card-body">
-                         <h5 class="card-title list-card-title">${movie.title} (${movie.year})</h5>
-                         <h6>${movie.genre}</h6>
-                         <div class="d-flex flex-row justify-content-between">
-                            <p class="card-text">Director: ${movie.director}</p>
-                            <p class="card-text">Rating: ${movie.rating}</p>
-                         </div>
-                     </div>
-                 </div>
+                <a href="single_movie_page.html">
+                    <div class="card list-card">
+                        <img src="${movie.image}" class="card-img-top list-card-img-top" alt="...">
+                        <div class="card-body list-card-body">
+                            <h5 class="card-title list-card-title">${movie.title} (${movie.year})</h5>
+                            <h6>${movie.genre}</h6>
+                            <div class="d-flex flex-row justify-content-between">
+                                <p class="card-text">Director: ${movie.director}</p>
+                                <p class="card-text">Rating: ${movie.rating}</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
              </div>
          `);
     });
@@ -150,6 +153,7 @@ function FilterByGenre(genre) {
     newList.forEach(movie => {
         $('#movieCards').append(`
              <div class ="col-md-3">
+                <a href="single_movie_page.html">
                  <div class="card list-card">
                      <img src="${movie.image}" class="card-img-top list-card-img-top" alt="...">
                      <div class="card-body list-card-body">
@@ -161,6 +165,7 @@ function FilterByGenre(genre) {
                          </div>
                      </div>
                  </div>
+                </a>
              </div>
          `);
     });
@@ -176,7 +181,7 @@ function LoadMainPageImages() {
                 </div>
             `);
         }
-        else{
+        else {
             $('#header-carousel').append(`
                 <div class="carousel-item">
                     <img src="${Movielist[i].image}" class="d-block w-100" alt="...">
