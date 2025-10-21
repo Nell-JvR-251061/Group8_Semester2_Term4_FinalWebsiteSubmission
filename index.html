@@ -1,26 +1,221 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE-edge">
-    <meta name="viewport" content="width-device-width, initial-scale-1.0">
 
-    <meta name="author" content="The Runtime Errors">
-    <meta name="keywords" content="">
-    <title>Home</title>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE-edge">
+  <meta name="viewport" content="width-device-width, initial-scale-1.0">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
-      crossorigin="anonymous">
-    <link rel="stylesheet" href="css\main.css" >
-  </head>
+  <meta name="author" content="The Runtime Errors">
+  <meta name="keywords" content="">
+  <title>Home | LiveHive</title>
 
-  <body>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <link rel="stylesheet" href="css\main.css">
+</head>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-      crossorigin="anonymous"></script>
-    <script src="js/script.js"></script>
-  </body>
+<body>
+  <nav class="navbar navbar-expand-lg fixed-top bg-body-secondary custom-navbar">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="index.html">
+        <img src="assets/imgs/Logo.png" alt="Logo" style="max-width: 150px; margin-left: 10px;">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
+        aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+        <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="pages/movie_list.html">Movies</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Pricing</a></li>
+          <li class="nav-item"><a class="nav-link" href="pages/watchlist.html">Your List</a></li>
+        </ul>
+        <form class="d-flex" role="search">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+          <a href="pages/sign_up.html" class="btn btn-outline-success" type="submit">Login</a>
+        </form>
+      </div>
+    </div>
+  </nav>
+
+  <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+    <div id="header-carousel" class="carousel-inner">
+      <!-- <div class="carousel-item active">
+        <img src="assets/imgs/jakob-owens-CiUR8zISX60-unsplash.jpg" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="assets/imgs/gr-stocks-q8P8YoR6erg-unsplash.jpg" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="assets/imgs/georgia-vagim-ny-lHmsHYHk-unsplash.jpg" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="assets/imgs/alex-litvin-MAYsdoYpGuk-unsplash.jpg" class="d-block w-100" alt="...">
+      </div> -->
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+
+  <div class="scroll-gallery">
+    <div class="image-card">
+      <img src="assets/imgs/jakob-owens-CiUR8zISX60-unsplash.jpg" alt="Image 1">
+      <div class="overlay-text">Comedy</div>
+    </div>
+
+    <div class="image-card">
+      <img src="assets/imgs/gr-stocks-q8P8YoR6erg-unsplash.jpg" alt="Image 2">
+      <div class="overlay-text">Romance</div>
+    </div>
+
+    <div class="image-card">
+      <img src="assets/imgs/georgia-vagim-ny-lHmsHYHk-unsplash.jpg" alt="Image 3">
+      <div class="overlay-text">Horror</div>
+    </div>
+
+    <div class="image-card">
+      <img src="assets/imgs/alex-litvin-MAYsdoYpGuk-unsplash.jpg" alt="Image 4">
+      <div class="overlay-text">Thriller</div>
+    </div>
+
+    <div class="image-card">
+      <img src="assets/imgs/jakob-owens-CiUR8zISX60-unsplash.jpg" alt="Image 1">
+      <div class="overlay-text">Comedy</div>
+    </div>
+
+    <div class="image-card">
+      <img src="assets/imgs/gr-stocks-q8P8YoR6erg-unsplash.jpg" alt="Image 2">
+      <div class="overlay-text">Romance</div>
+    </div>
+
+    <div class="image-card">
+      <img src="assets/imgs/georgia-vagim-ny-lHmsHYHk-unsplash.jpg" alt="Image 3">
+      <div class="overlay-text">Horror</div>
+    </div>
+
+    <div class="image-card">
+      <img src="assets/imgs/alex-litvin-MAYsdoYpGuk-unsplash.jpg" alt="Image 4">
+      <div class="overlay-text">Thriller</div>
+    </div>
+
+    <div class="image-card">
+      <img src="assets/imgs/jakob-owens-CiUR8zISX60-unsplash.jpg" alt="Image 1">
+      <div class="overlay-text">Comedy</div>
+    </div>
+
+    <div class="image-card">
+      <img src="assets/imgs/gr-stocks-q8P8YoR6erg-unsplash.jpg" alt="Image 2">
+      <div class="overlay-text">Romance</div>
+    </div>
+
+    <div class="image-card">
+      <img src="assets/imgs/georgia-vagim-ny-lHmsHYHk-unsplash.jpg" alt="Image 3">
+      <div class="overlay-text">Horror</div>
+    </div>
+
+    <div class="image-card">
+      <img src="assets/imgs/alex-litvin-MAYsdoYpGuk-unsplash.jpg" alt="Image 4">
+      <div class="overlay-text">Thriller</div>
+    </div>
+
+
+  </div>
+
+  <h1>Trending</h1>
+
+  <div id="top-10-movies" class="scrolling-wrapper">
+    <!-- <div class="card">
+      <img src="assets/imgs/jakob-owens-CiUR8zISX60-unsplash.jpg" class="card-img-top" alt="Movie 1">
+      <div class="card-body">
+        <h5 class="card-title">Movie 1</h5>
+        <p class="card-text">A short description.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="assets/imgs/gr-stocks-q8P8YoR6erg-unsplash.jpg" class="card-img-top" alt="Movie 2">
+      <div class="card-body">
+        <h5 class="card-title">Movie 2</h5>
+        <p class="card-text">A short description.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="assets/imgs/georgia-vagim-ny-lHmsHYHk-unsplash.jpg" class="card-img-top" alt="Movie 3">
+      <div class="card-body">
+        <h5 class="card-title">Movie 3</h5>
+        <p class="card-text">A short description.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="assets/imgs/alex-litvin-MAYsdoYpGuk-unsplash.jpg" class="card-img-top" alt="Movie 4">
+      <div class="card-body">
+        <h5 class="card-title">Movie 4</h5>
+        <p class="card-text">A short description.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="assets/imgs/jakob-owens-CiUR8zISX60-unsplash.jpg" class="card-img-top" alt="Movie 1">
+      <div class="card-body">
+        <h5 class="card-title">Movie 5</h5>
+        <p class="card-text">A short description.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="assets/imgs/gr-stocks-q8P8YoR6erg-unsplash.jpg" class="card-img-top" alt="Movie 2">
+      <div class="card-body">
+        <h5 class="card-title">Movie 6</h5>
+        <p class="card-text">A short description.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="assets/imgs/georgia-vagim-ny-lHmsHYHk-unsplash.jpg" class="card-img-top" alt="Movie 3">
+      <div class="card-body">
+        <h5 class="card-title">Movie 7</h5>
+        <p class="card-text">A short description.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="assets/imgs/alex-litvin-MAYsdoYpGuk-unsplash.jpg" class="card-img-top" alt="Movie 4">
+      <div class="card-body">
+        <h5 class="card-title">Movie 8</h5>
+        <p class="card-text">A short description.</p>
+      </div>
+    </div> -->
+
+  </div>
+
+  <div class="image-text-full">
+    <img src="assets/imgs/jakob-owens-CiUR8zISX60-unsplash.jpg" alt="Sample Image">
+    <div class="text-block">
+      <h2>Beautiful Sunset</h2>
+      <p>
+        Experience the serene beauty of nature as the sun dips below the horizon,
+        painting the sky with vibrant hues of orange and pink. Perfect for evening relaxation.
+      </p>
+    </div>
+  </div>
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
+  <script src="js/jQuery.js"></script>
+  <script src="js/script.js"></script>
+</body>
+
 </html>
