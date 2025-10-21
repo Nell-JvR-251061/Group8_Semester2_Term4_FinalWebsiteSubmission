@@ -116,8 +116,6 @@ function DisplayMovies() {
         $('#movieCards').append(`
             
              <div class ="col-md-3">
-
-             <!-- Added movie ID to link for single movie page -->
                 <a href="single_movie_page.html?id=${movie.id}">
                     <div class="card list-card">
                         <img src="${movie.image}" class="card-img-top list-card-img-top" alt="...">
@@ -158,7 +156,7 @@ function FilterByGenre(genre) {
     newList.forEach(movie => {
         $('#movieCards').append(`
              <div class ="col-md-3">
-                <a href="single_movie_page.html">
+                <a href="single_movie_page.html?id=${movie.id}"">
                  <div class="card list-card">
                      <img src="${movie.image}" class="card-img-top list-card-img-top" alt="...">
                      <div class="card-body list-card-body">
@@ -217,3 +215,50 @@ function SelectMovie(title) {
     }
 }
 
+document.addEventListener("DOMContentLoaded", async () => {
+
+    //Stops execution if not on single movie page
+    if (!window.location.href.includes("single_movie_page.html")) {
+        return;
+    }
+
+    //"window.location.search" gets the parts of the URL after the "?" symbol
+    const params = new URLSearchParams(window.location.search);
+    const movieId = params.get("id");
+
+    // Validates movie ID presence
+    if (!movieId) {
+        console.error("No movie ID found in URL");
+        return;
+    }
+
+    // Fetches movie details from TMDB API
+    const apiKey = "4b4dde0c583839c051377f3889d8a80f";
+    const url = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}&language=en-US`;
+    const creditsUrl = `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${apiKey}`;
+
+    try {
+        const [movieRes, creditsRes] = await Promise.all([
+            fetch(url),
+            fetch(creditsUrl)
+        ]);
+        const movieData = await movieRes.json();
+        const creditsData = await creditsRes.json();
+
+        // Extracts necessary details
+        // Director is optional based on final design
+        // If director is not found, defaults to "Unknown"
+        const director = creditsData.crew.find(c => c.job === "Director")?.name || "Unknown";
+        const image = "https://image.tmdb.org/t/p/original" + movieData.backdrop_path;
+        const rating = Math.round(movieData.vote_average * 10) / 10;
+
+        // Populates the page with movie details
+        $(".media-hero img").attr("src", image);
+        $(".overlay-card h2").text(movieData.original_title);
+        $(".overlay-card p.text-muted").text(` Rating: ${rating} / 10`);
+        $(".overlay-card .smptext.mb-3").text(movieData.overview);
+    
+    } catch (err) {
+        console.error("Error loading movie details:", err);
+    }
+  });

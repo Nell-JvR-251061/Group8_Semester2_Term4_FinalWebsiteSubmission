@@ -79,43 +79,6 @@
   <script src="../js/jQuery.js"></script>
   <script src="../js/script.js"></script>
 
-  <script>
-  document.addEventListener("DOMContentLoaded", async () => {
-    const params = new URLSearchParams(window.location.search);
-    const movieId = params.get("id");
-
-    if (!movieId) {
-      console.error("No movie ID found in URL");
-      return;
-    }
-
-    const apiKey = "4b4dde0c583839c051377f3889d8a80f";
-    const url = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}&language=en-US`;
-    const creditsUrl = `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${apiKey}`;
-
-    try {
-      const [movieRes, creditsRes] = await Promise.all([
-        fetch(url),
-        fetch(creditsUrl)
-      ]);
-      const movieData = await movieRes.json();
-      const creditsData = await creditsRes.json();
-
-      const director = creditsData.crew.find(c => c.job === "Director")?.name || "Unknown";
-      const image = "https://image.tmdb.org/t/p/original" + movieData.backdrop_path;
-      const rating = Math.round(movieData.vote_average * 10) / 10;
-
-      document.querySelector(".media-hero img").src = image;
-      document.querySelector(".overlay-card h2").textContent = movieData.original_title;
-      document.querySelector(".overlay-card p.text-muted").textContent = ` Rating: ${rating} / 10`;
-      document.querySelector(".overlay-card .smptext.mb-3").textContent = movieData.overview;
-
-    } catch (err) {
-      console.error("Error loading movie details:", err);
-    }
-  });
-</script>
-
 </body>
 
 </html>
