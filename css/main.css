@@ -458,7 +458,7 @@ a{
 /* Ensure the image fills and keeps aspect on small screens */
 .position-relative img.img-fluid {
   object-fit: cover;
-  height: auto;
+  height: 100%;
   display: block;
 }
 /* Optional: reduce overlay padding on very small screens */
@@ -468,16 +468,20 @@ a{
 
 /* Make hero image never exceed viewport height and center-crop when needed */
 .media-hero {
-  max-height: 100vh;
+  position: fixed;      /* fixes it to the viewport */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   overflow: hidden;
-  position: relative; /* already set, but safe */
+  z-index: 1;           /* keeps it behind overlay content */
 }
 
 .media-hero img.img-fluid {
   height: 100vh;        /* fill viewport height */
-  width: 100%;          /* span full width of container */
+  width: 100vw;          /* span full width of container */
   object-fit: cover;    /* crop to fill while preserving aspect ratio */
-  object-position: center center; /* center the crop */
+  object-position: center; /* center the crop */
   display: block;
 }
 
