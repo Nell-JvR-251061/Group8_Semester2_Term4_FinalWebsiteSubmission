@@ -1,6 +1,7 @@
 // Movie object constructor
 class Movie {
-    constructor(title, year, genre, image, director, rating, description) {
+    constructor(id, title, year, genre, image, director, rating, description) {
+        this.id = id;
         this.title = title;
         this.year = year;
         this.genre = genre;
@@ -86,7 +87,9 @@ var AvailableGenres = [];
         let description = data_all[i].overview;
 
         // Pushes new movie object to clean Movie list
-        Movielist.push(window["movie_" + i] = new Movie(title, year, genre, image, director, rating, description));
+        Movielist.push(window["movie_" + i] = new Movie(
+            data_all[i].id, title, year, genre, image, director, rating, description
+        ));
 
     }
     console.log(Movielist);
@@ -113,7 +116,9 @@ function DisplayMovies() {
         $('#movieCards').append(`
             
              <div class ="col-md-3">
-                <a href="single_movie_page.html">
+
+             <!-- Added movie ID to link for single movie page -->
+                <a href="single_movie_page.html?id=${movie.id}">
                     <div class="card list-card">
                         <img src="${movie.image}" class="card-img-top list-card-img-top" alt="...">
                         <div class="card-body list-card-body">
@@ -203,5 +208,12 @@ function LoadMainPageImages() {
         `);
     }
 
+}
+
+function SelectMovie(title) {
+    const selected = Movielist.find(m => m.title === title);
+    if (selected) {
+        localStorage.setItem("selectedMovie", JSON.stringify(selected));
+    }
 }
 

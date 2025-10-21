@@ -42,7 +42,7 @@
 
   <div class="position-absolute media-hero mx-auto">
     <!-- Background Image -->
-    <img src="../assets/imgs/Placeholder[The Last Light].png" class="img-fluid w-100" alt="Movie Poster">
+    <img src="" class="img-fluid w-100" alt="Movie Poster">
 
     <!-- Responsive Overlay -->
     <div class="position-absolute top-0 start-0 w-100 h-100">
@@ -63,10 +63,7 @@
                 <img src="../assets/imgs/Subtract.png" alt="" style="height:20px;margin-bottom:6px;">
               </p>
               <p class="smptext"><strong>Description:</strong></p>
-              <p class="smptext mb-3">In a world where the seas have swallowed nearly everything, a lone keeper tends to the
-                final lighthouse—its beam the last signal of humanity’s presence. When a mysterious signal flickers
-                across the horizon, he’s forced to confront the haunting question: is he truly the last one left, or has
-                something else found him first?</p>
+              <p class="smptext mb-3"></p>
               <button class="btn btn-dark w-100 mb-2">Watch</button>
               <button class="btn btn-outline-dark w-100">Save for Later</button>
             </div>
@@ -81,6 +78,44 @@
     crossorigin="anonymous"></script>
   <script src="../js/jQuery.js"></script>
   <script src="../js/script.js"></script>
+
+  <script>
+  document.addEventListener("DOMContentLoaded", async () => {
+    const params = new URLSearchParams(window.location.search);
+    const movieId = params.get("id");
+
+    if (!movieId) {
+      console.error("No movie ID found in URL");
+      return;
+    }
+
+    const apiKey = "4b4dde0c583839c051377f3889d8a80f";
+    const url = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}&language=en-US`;
+    const creditsUrl = `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${apiKey}`;
+
+    try {
+      const [movieRes, creditsRes] = await Promise.all([
+        fetch(url),
+        fetch(creditsUrl)
+      ]);
+      const movieData = await movieRes.json();
+      const creditsData = await creditsRes.json();
+
+      const director = creditsData.crew.find(c => c.job === "Director")?.name || "Unknown";
+      const image = "https://image.tmdb.org/t/p/original" + movieData.backdrop_path;
+      const rating = Math.round(movieData.vote_average * 10) / 10;
+
+      document.querySelector(".media-hero img").src = image;
+      document.querySelector(".overlay-card h2").textContent = movieData.original_title;
+      document.querySelector(".overlay-card p.text-muted").textContent = ` Rating: ${rating} / 10`;
+      document.querySelector(".overlay-card .smptext.mb-3").textContent = movieData.overview;
+
+    } catch (err) {
+      console.error("Error loading movie details:", err);
+    }
+  });
+</script>
+
 </body>
 
 </html>
