@@ -403,13 +403,15 @@ body {
 
 /* Nell CSS */
 
-#listDropdown{
+#listDropdown,
+#sortDropdown {
   background-color: var(--ccYellow);
   border-radius: 18px;
   border: none;
 }
 
-#listDropdown:hover{
+#listDropdown:hover,
+#sortDropdown:hover {
   background-color: var(--ccBlue);
 }
 

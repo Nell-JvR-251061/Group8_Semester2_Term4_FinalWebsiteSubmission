@@ -40,7 +40,9 @@
     </div>
   </nav>
 
-  <div class="dropdown-container container-fluid below-nav fixed-top d-flex justify-content-end">
+  <div class="dropdown-container container-fluid below-nav fixed-top d-flex justify-content-end gap-2">
+    
+    <!-- Filter Dropdown -->
     <div class="dropdown-center">
       <button id="listDropdown" class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
         Filter by Genre
@@ -48,10 +50,26 @@
       <ul class="dropdown-menu" id="genre-filter">
         <li><a class="dropdown-item" onclick="DisplayMovies()">Clear Filter</a></li>
         <li><hr class="dropdown-divider"></li>
-        <!-- Genre's will be pushed here -->
       </ul>
     </div>
-  </div>
+
+    <!-- Sort Dropdown -->
+    <div class="dropdown-center">
+      <button id="sortDropdown" class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Sort by
+      </button>
+      <ul class="dropdown-menu" id="sort-options">
+        <li><a class="dropdown-item" onclick="SortMovies('az')">Title: A → Z</a></li>
+        <li><a class="dropdown-item" onclick="SortMovies('za')">Title: Z → A</a></li>
+        <li><a class="dropdown-item" onclick="SortMovies('newest')">Year: Newest</a></li>
+        <li><a class="dropdown-item" onclick="SortMovies('oldest')">Year: Oldest</a></li>
+        <li><a class="dropdown-item" onclick="SortMovies('high')">Rating: High → Low</a></li>
+        <li><a class="dropdown-item" onclick="SortMovies('low')">Rating: Low → High</a></li>
+      </ul>
+    </div>
+
+</div>
+
 
   <div id="movie-list-container" class="container-fluid">
     <div class="row" id="movieCards">
