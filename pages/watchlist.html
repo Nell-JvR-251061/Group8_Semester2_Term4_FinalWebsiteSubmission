@@ -13,10 +13,67 @@
       rel="stylesheet"
       integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
       crossorigin="anonymous">
-    <link rel="stylesheet" href="css\main.css" >
+    <link rel="stylesheet" href="../css\main.css" >
   </head>
 
   <body>
+
+<nav class="navbar navbar-expand-lg fixed-top bg-body-secondary custom-navbar">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      <img src="../assets/imgs/Logo.png" alt="Logo" style="max-width: 150px; margin-left: 10px;">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+      <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Movies</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Pricing</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Your List</a></li>
+      </ul>
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+        <button class="btn btn-outline-success" type="submit">Login</button>
+      </form>
+    </div>
+  </div>
+</nav>
+
+<h1>Watch List</h1>
+
+<div class="carousel-wrapper">
+
+  <div class="carousel-card">
+    <img src="../assets/imgs/jakob-owens-CiUR8zISX60-unsplash.jpg" alt="Movie 1" class="carousel-img">
+    <div class="carousel-title">Movie 1</div>
+    <div class="carousel-body">
+      <p>A short description about Movie 1 that appears on hover.</p>
+    </div>
+  </div>
+
+  <div class="carousel-card">
+    <img src="../assets/imgs/gr-stocks-q8P8YoR6erg-unsplash.jpg" alt="Movie 2" class="carousel-img">
+    <div class="carousel-title">Movie 2</div>
+    <div class="carousel-body">
+      <p>A short description about Movie 2 that appears on hover.</p>
+    </div>
+  </div>
+
+  <div class="carousel-card">
+    <img src="../assets/imgs/georgia-vagim-ny-lHmsHYHk-unsplash.jpg" alt="Movie 3" class="carousel-img">
+    <div class="carousel-title">Movie 3</div>
+    <div class="carousel-body">
+      <p>A short description about Movie 3 that appears on hover.</p>
+    </div>
+  </div>
+
+</div>
+
+
+</div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
