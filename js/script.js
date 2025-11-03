@@ -1,3 +1,10 @@
+document.addEventListener("DOMContentLoaded", function(){
+    if (window.location.href.includes("sign_up.html")) {
+        localStorage.removeItem('username');
+        localStorage.removeItem('watchlist');
+    }
+});
+
 // Movie object constructor
 class Movie {
     constructor(id, title, year, genre, image, director, rating, description) {
@@ -24,6 +31,7 @@ let currentSearch = "";
 // Search mode flag and timeout for debouncing
 let searchMode = false;
 let searchTimeout = null; // for debouncing (optional but smoother)
+
 
 
 !(async function () {
@@ -122,12 +130,15 @@ let searchTimeout = null; // for debouncing (optional but smoother)
             ))
         );
     }
-    console.log(Movielist);
 
     AvailableGenres = new Set(getGenres.sort());
+    AvailableGenres = [...AvailableGenres];
     DisplayMovies();
     LoadMainPageImages();
     AddGenresToDropdown();
+    LoadRecommended();
+    GenerateWatchlist();
+    $("#navLogin").html(`${localStorage.getItem('username')}`);
 })();
 
 // Clears the movie list page for new content
@@ -175,12 +186,10 @@ function LoadMainPageImages() {
 
     for (let i = 0; i < 10; i++) {
         $("#top-10-movies").append(`
-                <a class="card" href="pages/single_movie_page.html">
-                    <img src="${Movielist[i].image
-            }" class="card-img-top" alt="Movie 1">
+                <a class="card" href="pages/single_movie_page.html?id=${Movielist[i].id}">
+                    <img src="${Movielist[i].image}" class="card-img-top" alt="Movie 1">
+                    <h5 class="card-title">${i + 1} - ${Movielist[i].title}</h5>
                     <div class="card-body">
-                        <h5 class="card-title">${i + 1} - ${Movielist[i].title
-            }</h5>
                         <p class="card-text">${Movielist[i].description}</p>
                     </div>
                 </a>
@@ -190,6 +199,150 @@ function LoadMainPageImages() {
 
 function SelectMovie(title) {
     const selected = Movielist.find((m) => m.title === title);
+
+    //makes a copy of the movielist
+    var mainGenresList = [...Movielist];
+    var mainGenres = selectRandomItems(AvailableGenres, 10);
+
+    mainGenres.forEach((e) => {
+        var foundMovie = mainGenresList.find(movie => movie.genre.includes(e));
+        if (foundMovie == null) {
+            return;
+        }
+        var foundMovieIndex = mainGenresList.findIndex(movie => movie.genre.includes(e));
+        // var foundMovieId = mainGenresList.find(movie => movie.genre.includes(e));
+        $("#main-genre-cards").append(`
+            <a class="image-card" href="pages/single_movie_page.html?id=${foundMovie.id}">
+                <img src="${foundMovie.image}" alt="${foundMovie.title}">
+                <div class="overlay-text">${e}</div>
+            </a>
+            `);
+        mainGenresList.splice(foundMovieIndex, 1);
+    });
+}
+
+function selectRandomItems(array, count) {
+
+    if (!Array.isArray(array) || count <= 0) {
+        return [];
+    }
+    if (count >= array.length) {
+        return [...array].sort(() => 0.5 - Math.random());
+    }
+
+    const randomArray = [...array].sort(() => 0.5 - Math.random());
+    return randomArray.slice(0, count);
+}
+
+function LoadRecommended() {
+    var copyMovieList = [...Movielist];
+
+    for (let i = 0; i < 12; i++) {
+        randomMovie = Math.floor(Math.random() * (copyMovieList.length));
+
+        $("#recommendations-list").append(`
+            <a class="card" href="single_movie_page.html?id=${copyMovieList[randomMovie].id}">
+                <img src="${copyMovieList[randomMovie].image}" class="card-img-top" alt="Movie 1">
+                <h5 class="card-title">${copyMovieList[randomMovie].title}</h5>
+                <div class="card-body">
+                    <p class="card-text desktop-tex">${copyMovieList[randomMovie].description}</p>
+                    <span class="mobile-text">Check it out</span>
+                </div>
+            </a>
+        `);
+
+        copyMovieList.splice(randomMovie, 1);
+    }
+}
+
+function Swap() {
+    if (document.getElementById("signupForm").style.display === "block") {
+        document.getElementById("signupForm").style.display = "none";
+        document.getElementById("loginForm").style.display = "block";
+    }
+    else {
+        document.getElementById("loginForm").style.display = "none";
+        document.getElementById("signupForm").style.display = "block";
+    }
+}
+
+function AddToWatchlist(_movieTitle) {
+    // localStorage.clear();
+    console.log("Ran");
+    if (localStorage.getItem('watchlist') == "" || localStorage.getItem('watchlist') === null) {
+        var addList = [_movieTitle];
+        localStorage.setItem('watchlist', JSON.stringify(addList));
+        console.log(localStorage.getItem('watchlist'));
+        GenerateWatchlist();
+    }
+    else {
+        console.log(false);
+        var changeList = JSON.parse(localStorage.getItem('watchlist'));
+        changeList.push(_movieTitle);
+        console.log(changeList);
+        localStorage.setItem('watchlist', JSON.stringify(changeList));
+        console.log(localStorage.getItem('watchlist'));
+        GenerateWatchlist();
+    }
+}
+
+function RemoveFromWatchlist(_movieTitle) {
+    var changeList = JSON.parse(localStorage.getItem('watchlist'));
+    var cutIndex = changeList.findIndex(title => {
+        if (title === null) {
+            return;
+        }
+        else {
+            title.includes(_movieTitle)
+        }
+    });
+    changeList.splice(cutIndex, 1);
+    localStorage.setItem('watchlist', JSON.stringify(changeList));
+    console.log(localStorage.getItem('watchlist'));
+    GenerateWatchlist();
+}
+
+function GenerateWatchlist() {
+    $("#watchlist").html('');
+    var getList = JSON.parse(localStorage.getItem('watchlist'));
+    var copyMovieList = [...Movielist];
+
+    if (getList === null || getList.length < 1) {
+        $("#watchlist").html(`<h2 style="margin-left: 20px;">No movies added yet.</h2>`);
+    }
+    else {
+        getList.forEach(e => {
+            if (e === null) {
+                return;
+            }
+            else {
+                var movie = copyMovieList.find(eTitle => eTitle.title.includes(e));
+                console.log(movie);
+
+                $("#watchlist").append(`
+                    <div class="card">
+                        <img src="${movie.image}" class="card-img-top" alt="Movie 1">
+                        <h5 class="card-title">${movie.title}</h5>
+                        <div class="card-body">
+                            <p class="card-text desktop-tex">${movie.description}</p>
+                            <div class="d-flex justify-content-between">
+                            <a class="btn removeBtn" href="single_movie_page.html?id=${movie.id}">Details</a>
+                            <a class="btn removeBtn" onclick="RemoveFromWatchlist('${movie.title}')">Remove</a>
+                            </div>
+                        </div>
+                    </div>
+                `);
+            }
+        });
+    }
+}
+
+
+// <------------------------------------Thedza's code-------------------------------------->
+
+function SelectMovie(title) {
+
+    const selected = [...Movielist].find((m) => m.title === title);
     if (selected) {
         localStorage.setItem("selectedMovie", JSON.stringify(selected));
     }
@@ -301,8 +454,8 @@ function RenderMovies() {
                 <a href="single_movie_page.html?id=${movie.id}">
                     <div class="card list-card">
                         <img src="${movie.image}" class="card-img-top list-card-img-top" alt="...">
+                        <h5 class="card-title list-card-title">${movie.title} (${movie.year})</h5>
                         <div class="card-body list-card-body">
-                            <h5 class="card-title list-card-title">${movie.title} (${movie.year})</h5>
                             <h6>${movie.genre}</h6>
                             <div class="d-flex flex-row justify-content-between">
                                 <p class="card-text">Director: ${movie.director}</p>

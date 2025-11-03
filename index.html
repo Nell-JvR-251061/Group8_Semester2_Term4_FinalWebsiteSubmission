@@ -7,7 +7,8 @@
   <meta name="viewport" content="width-device-width, initial-scale-1.0">
 
   <meta name="author" content="The Runtime Errors">
-  <meta name="keywords" content="">
+  <meta name="description" content="Stream your favorite movies and shows anytime, anywhere. Discover trending titles, new releases, and personalized recommendations.">
+  <meta name="keywords" content="streaming, movies, tv shows, online streaming, watch online, new releases, trending titles, entertainment, video on demand, film streaming, series, binge watch">
   <title>Home | LiveHive</title>
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -16,7 +17,7 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg fixed-top bg-body-secondary custom-navbar">
+  <nav id="homeNav" class="navbar navbar-expand-lg fixed-top bg-body-secondary custom-navbar">
     <div class="container-fluid">
       <a class="navbar-brand" href="index.html">
         <img src="assets/imgs/Logo.png" alt="Logo" style="max-width: 150px; margin-left: 10px;">
@@ -29,13 +30,9 @@
         <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
           <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.html">Home</a></li>
           <li class="nav-item"><a class="nav-link" href="pages/movie_list.html">Movies</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Pricing</a></li>
           <li class="nav-item"><a class="nav-link" href="pages/watchlist.html">Your List</a></li>
         </ul>
-        <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-          <a href="pages/sign_up.html" class="btn btn-outline-success" type="submit">Login</a>
-        </form>
+        <a href="pages/sign_up.html" id="navLogin" class="btn btn-outline-success nav-login" type="submit">Login</a>
       </div>
     </div>
   </nav>
@@ -65,8 +62,8 @@
     </button>
   </div>
 
-  <div class="scroll-gallery">
-    <div class="image-card">
+  <div id="main-genre-cards" class="scroll-gallery">
+    <!-- <div class="image-card">
       <img src="assets/imgs/jakob-owens-CiUR8zISX60-unsplash.jpg" alt="Image 1">
       <div class="overlay-text">Comedy</div>
     </div>
@@ -124,9 +121,7 @@
     <div class="image-card">
       <img src="assets/imgs/alex-litvin-MAYsdoYpGuk-unsplash.jpg" alt="Image 4">
       <div class="overlay-text">Thriller</div>
-    </div>
-
-
+    </div> -->
   </div>
 
   <h1>Trending</h1>
@@ -198,17 +193,55 @@
 
   </div>
 
+  
   <div class="image-text-full">
     <img src="assets/imgs/jakob-owens-CiUR8zISX60-unsplash.jpg" alt="Sample Image">
     <div class="text-block">
-      <h2>Beautiful Sunset</h2>
+      <h2>LiveHive</h2>
       <p>
-        Experience the serene beauty of nature as the sun dips below the horizon,
-        painting the sky with vibrant hues of orange and pink. Perfect for evening relaxation.
+        LiveHive is a modern movie website where film lovers can stream, discover, and discuss their favorite titles. 
+        With a sleek design and personalized recommendations, LiveHive brings the buzz of cinema straight to your screen — from blockbuster premieres to hidden indie gems, all in one vibrant hive of entertainment.
       </p>
     </div>
   </div>
 
+<footer class="site-footer">
+  <div class="footer-container">
+    <p class="footer-item">All Rights Reserved @ Company 2025</p>
+    <p class="footer-item"><a href="#">Terms & Conditions</a></p>
+    <p class="footer-item"><a href="#">Privacy & Policies</a></p>
+  </div>
+</footer>
+
+<script>
+  const scrollContainer = document.querySelector('.scrolling-wrapper');
+
+  scrollContainer.addEventListener('wheel', (e) => {
+    e.preventDefault();
+
+    const scrollSpeed = 3;
+
+    scrollContainer.scrollBy({
+      left: e.deltaY * scrollSpeed,
+      behavior: 'smooth'
+    });
+  });
+</script>
+
+<script>
+  const gallery = document.querySelector('.scroll-gallery');
+
+  gallery.addEventListener('wheel', (e) => {
+    e.preventDefault();
+
+    const scrollSpeed = 3;
+
+    gallery.scrollBy({
+      left: e.deltaY * scrollSpeed,
+      behavior: 'smooth'
+    });
+  });
+</script>
 
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
