@@ -7,41 +7,65 @@
   <meta name="viewport" content="width-device-width, initial-scale-1.0">
 
   <meta name="author" content="The Runtime Errors">
-  <meta name="keywords" content="">
+  <meta name="description" content="Log in to access your account securely or Sign up and join the Hive">
+  <meta name="keywords" content="login, sign in, user account, secure access, authentication, profile, password, member login">
   <title>Login | LiveHive</title>
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
   <link rel="stylesheet" href="../css\main.css">
+  <script type="module" src="../js/firebase.js" defer></script>
 </head>
 
 <body id="signBody">
-  <div class="form-container">
-    <img src="../assets/imgs/LiveHive Concept Logo 1.png" width="40%">
-    <h2>Create an Account</h2>
+  <div id="signupForm" class="form-container" style="display:none">
+    <img src="../assets/imgs/LiveHive Concept Logo 1.png" width="40%" class="logo">
+    <div>
+      <h2 class="form-h2">Create an account</h2>
 
+      <form>
+        <div class="mb-3">
+          <label class="form-label">Username</label>
+          <input type="text" placeholder="Your name" class="form-control" id="inputName" required>
+          <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Email address</label>
+          <input type="email" placeholder="youremail@gmail.com" class="form-control" id="inputEmail"
+            aria-describedby="emailHelp" required>
+          <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label">Password</label>
+          <input type="password" placeholder="Password" class="form-control" id="inputPassword">
+        </div>
+        <button type="submit" class="Login btn-form-primary" id="submit-sign-in">Sign up</button>
+      </form>
+      <hr />
+      <button class="btn btn-primary sign-in" onclick="Swap()">Logging in?</button>
+    </div>
+  </div>
 
-    <form>
-      <input type="email" placeholder="youremail@gmail.com" required />
+  <div id="loginForm" class="form-container" style="display:block">
+    <img src="../assets/imgs/LiveHive Concept Logo 1.png" width="40%" class="logo">
+    <div id="formBody">
+      <h2 class="form-h2">Login to your account</h2>
 
-      <input type="password" placeholder="Password" required />
-
-      <div class="form-options">
-        <label>
-          <input type="checkbox" checked />
-          Remember me
-        </label>
-
-        <a href="#" class="forgot-link">Forgot Password?</a>
-      </div>
-
-      <button type="submit" class="sign-in">Sign in</button>
-    </form>
-
-    <hr />
-    <a href="../index.html">
-      <button class="skip-to-movies">Skip to Movies</button>
-    </a>
+      <form>
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Email address</label>
+          <input type="email" placeholder="youremail@gmail.com" class="form-control" id="loginEmail"
+            aria-describedby="emailHelp" required>
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label">Password</label>
+          <input type="password" placeholder="Password" class="form-control" id="loginPassword">
+        </div>
+        <button type="submit" class="Login btn-form-primary" id="submit-login">Login</button>
+      </form>
+      <hr />
+      <button class="btn btn-primary sign-in" onclick="Swap()">Signing up?</button>
+    </div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"

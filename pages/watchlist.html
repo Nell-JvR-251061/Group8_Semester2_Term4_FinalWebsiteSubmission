@@ -1,26 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE-edge">
-    <meta name="viewport" content="width-device-width, initial-scale-1.0">
 
-    <meta name="author" content="The Runtime Errors">
-    <meta name="keywords" content="">
-    <title>Placeholder</title>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE-edge">
+  <meta name="viewport" content="width-device-width, initial-scale-1.0">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
-      crossorigin="anonymous">
-    <link rel="stylesheet" href="css\main.css" >
-  </head>
+  <meta name="author" content="The Runtime Errors">
+  <meta name="description" content="View and manage your personal watchlist. Keep track of movies you want to watch and easily access your favorites.">
+  <meta name="keywords" content="watchlist, favorite movies, saved films, movie tracker, to watch list, personal list, film collection, movie management, watch later, cinema list">
+  <title>Watchlist | LiveHive</title>
 
-  <body>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <link rel="stylesheet" href="../css\main.css">
+</head>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-      crossorigin="anonymous"></script>
-    <script src="js/script.js"></script>
-  </body>
+<body>
+
+  <nav class="navbar navbar-expand-xl fixed-top bg-body-secondary custom-navbar">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="../index.html">
+        <img src="../assets/imgs/Logo.png" alt="Logo" style="max-width: 150px; margin-left: 10px;">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
+        aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+        <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link" aria-current="page" href="../index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="movie_list.html">Movies</a></li>
+          <li class="nav-item"><a class="nav-link active" href="watchlist.html">Your List</a></li>
+        </ul>
+        <a href="sign_up.html" id="navLogin" class="btn btn-outline-success" type="submit">Login</a>
+      </div>
+    </div>
+  </nav>
+
+  <style>
+    h1 {
+      margin-top: 100px;
+      text-align: center;
+      color: white;
+      font-size: 3rem;
+    }
+  </style>
+
+  <h1>Watch List</h1>
+
+  <div class="line">
+
+  </div>
+
+  <div id="watchlist" class="scrolling-wrapper">
+    <!-- <div class="card">
+      <img src="../assets/imgs/placeholder.png" class="card-img-top" alt="Movie 1">
+      <h5 class="card-title">${copyMovieList[randomMovie].title}</h5>
+      <div class="card-body">
+        <p class="card-text desktop-tex">${copyMovieList[randomMovie].description}</p>
+        <div class="d-flex justify-content-between">
+          <a class="btn removeBtn" href="single_movie_page.html?id=${copyMovieList[randomMovie].id}">Details</a>
+          <a class="btn removeBtn">Remove</a>
+        </div>
+      </div>
+    </div> -->
+  </div>
+
+  <style>
+    h2 {
+      margin-top: 50px;
+      text-align: center;
+      color: white;
+      font-size: 3rem;
+    }
+  </style>
+
+
+  <h2>Recommended</h2>
+
+  <div class="line"></div>
+
+  <div id="recommendations-list" class="scrolling-wrapper recommended-scrolling-wrapper">
+
+  </div>
+
+  <!-- <div class="line"></div> -->
+
+  <footer id="watchlist-footer" class="site-footer">
+    <div class="footer-container">
+      <p class="footer-item">All Rights Reserved @ Company 2025</p>
+      <p class="footer-item"><a href="#">Terms & Conditions</a></p>
+      <p class="footer-item"><a href="#">Privacy & Policies</a></p>
+    </div>
+  </footer>
+
+  <script>
+    const scrollContainer = document.querySelector('.scrolling-wrapper');
+
+    scrollContainer.addEventListener('wheel', (e) => {
+      e.preventDefault();
+
+      const scrollSpeed = 3;
+
+      scrollContainer.scrollBy({
+        left: e.deltaY * scrollSpeed,
+        behavior: 'smooth'
+      });
+    });
+  </script>
+
+  <script>
+    const recommendedScrollContainer = document.querySelector('.recommended-scrolling-wrapper');
+
+    recommendedScrollContainer.addEventListener('wheel', (e) => {
+      e.preventDefault();
+
+      const scrollSpeed = 3;
+
+      recommendedScrollContainer.scrollBy({
+        left: e.deltaY * scrollSpeed,
+        behavior: 'smooth'
+      });
+    });
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
+  <script src="../js/jQuery.js"></script>
+  <script src="../js/script.js"></script>
+</body>
+
 </html>
