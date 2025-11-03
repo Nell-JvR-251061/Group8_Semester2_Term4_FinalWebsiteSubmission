@@ -21,6 +21,11 @@ let currentGenre = null;
 let currentSort = null;
 let currentSearch = "";
 
+// Search mode flag and timeout for debouncing
+let searchMode = false;
+let searchTimeout = null; // for debouncing (optional but smoother)
+
+
 !(async function () {
     // URLs and option information being stored for ease of use
     const url_movies_p1 =
@@ -355,5 +360,91 @@ document.getElementById("searchBar").addEventListener("input", function (e) {
     RenderMovies();
 });
 
+// Live Global Search
+document.getElementById("searchBar").addEventListener("input", (e) => {
+    const query = e.target.value.trim().toLowerCase();
+
+    if (query.length === 0) {
+        ExitSearchMode();
+        return;
+    }
+
+    // Enter Search Mode
+    searchMode = true;
+    document.getElementById("searchBackBtn").classList.remove("d-none");
+
+    // Show loading feedback
+    $("#movieCards").html(`<p class="text-center mt-5">Searching TMDB...</p>`);
+
+    // Debounce to avoid API spam
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(() => SearchTMDB(query), 400);
+});
+
+async function SearchTMDB(query) {
+    const url = `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(query)}&language=en-US`;
+
+    try {
+        const response = await fetch(url, {
+    method: "GET",
+    headers: {
+        accept: "application/json",
+        Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxNjZkNTk0MmQ4NWFkOTkwYmIwNTIzNGVhOWU3MGYzYSIsIm5iZiI6MTc1ODIwMjk3MS43MzYsInN1YiI6IjY4Y2MwYzViMzRjNjhlNmJhMDVlOGYwNCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ._Hhuwq1bS0hLn4rQIsTpjakNhYj859TtcPnJT3R-MT4",
+    },
+});
+
+        const data = await response.json();
+
+        if (!data.results || data.results.length === 0) {
+            $("#movieCards").html(`<p class="text-center mt-5">No results found for "${query}"</p>`);
+            return;
+        }
+
+        RenderSearchResults(data.results);
+    } catch (err) {
+        console.error(`Search error for query "${query}":`, err);
+        if (err && err.response && err.response.status) {
+            console.error(`Response status: ${err.response.status}`);
+        }
+        $("#movieCards").html(`<p class="text-center mt-5 text-danger">Error fetching results for "${query}"</p>`);
+    }
+}
+
+function RenderSearchResults(results) {
+    ClearMovieList();
+
+    results.forEach((movie) => {
+        const image = movie.backdrop_path
+            ? "https://image.tmdb.org/t/p/original" + movie.backdrop_path
+            : "https://placehold.co/600x400?text=No+Image";
+
+        const rating = movie.vote_average ? Math.round(movie.vote_average * 10) / 10 : "N/A";
+
+        $("#movieCards").append(`
+            <div class="col-md-3">
+                <a href="single_movie_page.html?id=${movie.id}">
+                    <div class="card list-card">
+                        <img src="${image}" class="card-img-top list-card-img-top" alt="${movie.title}">
+                        <div class="card-body list-card-body">
+                            <h5 class="card-title list-card-title">${movie.original_title} (${movie.release_date ? movie.release_date.slice(0,4) : "?"})</h5>
+                            <p class="card-text">Rating: ${rating}</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        `);
+    });
+}
+
+function ExitSearchMode() {
+    if (!searchMode) return;
+
+    searchMode = false;
+    document.getElementById("searchBackBtn").classList.add("d-none");
+    document.getElementById("searchBar").value = "";
+
+    DisplayMovies(); // restore default movie list
+}
 
 // Note: The original rendering logic from the old SortMovies is removed here since it's now in RenderMovies
