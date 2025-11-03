@@ -331,10 +331,10 @@ function SortMovies(type) {
     } else {
         switch (type) {
             case "az":
-                $("#sortDropdown").html("Title: A → Z");
+                $("#sortDropdown").html("Title: A to Z");
                 break;
             case "za":
-                $("#sortDropdown").html("Title: Z → A");
+                $("#sortDropdown").html("Title: Z to A");
                 break;
             case "newest":
                 $("#sortDropdown").html("Year: Newest");
@@ -343,10 +343,10 @@ function SortMovies(type) {
                 $("#sortDropdown").html("Year: Oldest");
                 break;
             case "high":
-                $("#sortDropdown").html("Rating: High → Low");
+                $("#sortDropdown").html("Rating: High to Low");
                 break;
             case "low":
-                $("#sortDropdown").html("Rating: Low → High");
+                $("#sortDropdown").html("Rating: Low to High");
                 break;
         }
     }
