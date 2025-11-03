@@ -19,6 +19,7 @@ var AvailableGenres = [];
 // Current filter and sort selections
 let currentGenre = null;
 let currentSort = null;
+let currentSearch = "";
 
 !(async function () {
     // URLs and option information being stored for ease of use
@@ -237,28 +238,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 });
 
-// Re-render movie cards with sorted results
-ClearMovieList();
-sortedList.forEach((movie) => {
-    $("#movieCards").append(`
-      <div class ="col-md-3">
-        <a href="single_movie_page.html?id=${movie.id}">
-         <div class="card list-card">
-             <img src="${movie.image}" class="card-img-top list-card-img-top" alt="...">
-             <div class="card-body list-card-body">
-                 <h5 class="card-title list-card-title">${movie.title} (${movie.year})</h5>
-                 <h6>${movie.genre}</h6>
-                 <div class="d-flex flex-row justify-content-between">
-                    <p class="card-text">Director: ${movie.director}</p>
-                    <p class="card-text">Rating: ${movie.rating}</p>
-                 </div>
-             </div>
-         </div>
-        </a>
-      </div>
-    `);
-});
-
 // Clears the movie list page for new content
 function ClearMovieList() {
     $("#movieCards").html(``);
@@ -272,6 +251,15 @@ function RenderMovies() {
     if (currentGenre && currentGenre !== "Clear Filter") {
         listToRender = listToRender.filter((movie) => {
             return movie.genre.includes(currentGenre);
+        });
+    }
+
+    // Apply Search Filter
+    if (currentSearch.trim() !== "") {
+        listToRender = listToRender.filter((movie) => {
+            return movie.title.toLowerCase().includes(currentSearch) ||
+                   movie.genre.toLowerCase().includes(currentSearch) ||
+                   movie.director.toLowerCase().includes(currentSearch);
         });
     }
 
@@ -323,23 +311,6 @@ function RenderMovies() {
     });
 }
 
-
-// Populates the movie list page
-function DisplayMovies() {
-    currentGenre = null; // reset filter
-    $("#listDropdown").html(`Filter by Genre`);
-    RenderMovies(); // unified rendering function
-}
-
-// Adds available genres to the genre dropdown filter on the movie list page
-function AddGenresToDropdown() {
-    AvailableGenres.forEach((element) => {
-        $("#genre-filter").append(`
-            <li><a class="dropdown-item" onclick="FilterByGenre('${element}')">${element}</a></li>
-        `);
-    });
-}
-
 // Displays movies on the movie list page based on the user's selection
 function FilterByGenre(genre) {
     currentGenre = genre;
@@ -377,5 +348,12 @@ function SortMovies(type) {
 
     RenderMovies(); // Use the unified rendering function
 }
+
+// Search bar live filter
+document.getElementById("searchBar").addEventListener("input", function (e) {
+    currentSearch = e.target.value.toLowerCase();
+    RenderMovies();
+});
+
 
 // Note: The original rendering logic from the old SortMovies is removed here since it's now in RenderMovies
