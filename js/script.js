@@ -392,7 +392,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         const creditsData = await creditsRes.json();
 
         // Extracts necessary details
-        // Director is optional based on final design
         // If director is not found, defaults to "Unknown"
         const director =
             creditsData.crew.find((c) => c.job === "Director")?.name || "Unknown";
@@ -404,6 +403,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         $(".media-hero img").attr("src", image);
         $(".overlay-card h2").text(movieData.original_title);
         $(".overlay-card p.text-muted").text(` Rating: ${rating} / 10`);
+        $(".overlay-card p.text-muted").after(`<p class="smptext">Director: ${director}</p>`);
         $(".overlay-card .smptext.mb-3").text(movieData.overview);
 
         
