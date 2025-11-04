@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
 // Movie object constructor
 class Movie {
-    constructor(id, title, year, genre, image, director, rating, description) {
+    constructor(id, title, year, genre, image, director, rating, description, trailerKey) {
         this.id = id;
         this.title = title;
         this.year = year;
@@ -16,6 +16,7 @@ class Movie {
         this.director = director;
         this.rating = rating;
         this.description = description;
+        this.trailerKey = trailerKey; // You can store the trailer key if needed
     }
 }
 
@@ -32,16 +33,14 @@ let currentSearch = "";
 let searchMode = false;
 let searchTimeout = null; // for debouncing (optional but smoother)
 
-
-
 !(async function () {
     // URLs and option information being stored for ease of use
     const url_movies_p1 =
-        "https://api.themoviedb.org/3/trending/movie/week?api_key=<<166d5942d85ad990bb05234ea9e70f3a>>,language=en-US";
-    const url_movies_p2 =
-        "https://api.themoviedb.org/3/trending/movie/week?api_key=<<166d5942d85ad990bb05234ea9e70f3a>>,language=en-US&page=2";
-    const url_genre_codes =
-        "https://api.themoviedb.org/3/genre/movie/list?api_key=<<166d5942d85ad990bb05234ea9e70f3a>>,language=en-US";
+    "https://api.themoviedb.org/3/trending/movie/week?api_key=166d5942d85ad990bb05234ea9e70f3a&language=en-US";
+const url_movies_p2 =
+    "https://api.themoviedb.org/3/trending/movie/week?api_key=166d5942d85ad990bb05234ea9e70f3a&language=en-US&page=2";
+const url_genre_codes =
+    "https://api.themoviedb.org/3/genre/movie/list?api_key=166d5942d85ad990bb05234ea9e70f3a&language=en-US";
     const options = {
         method: "GET",
         headers: {
@@ -96,6 +95,20 @@ let searchTimeout = null; // for debouncing (optional but smoother)
             .then((jsonData) => jsonData.crew.filter(({ job }) => job === "Director"))
             .catch((error) => console.log(error));
 
+            let data_videos = await fetch(
+            "https://api.themoviedb.org/3/movie/" +
+            data_all[i].id +
+            "/videos?api_key=<<166d5942d85ad990bb05234ea9e70f3a>>", // Use your TMDB API Key
+            options
+        )
+            .then((response) => response.json())
+            .then((jsonData) => jsonData.results)
+            .catch((error) => console.log(error));
+        
+        // Find the first official YouTube Trailer
+        const trailerVideo = data_videos.find(v => v.site === "YouTube" && v.type === "Trailer" && v.official === true);
+        const trailerKey = trailerVideo ? trailerVideo.key : null;
+
         // Loops through the genre id list to match the movies's genre code and stores the returned string values
         genreUpdate = data_all[i].genre_ids.map((element) => {
             for (r = 0; r < genreCodes.length; r++) {
@@ -126,7 +139,8 @@ let searchTimeout = null; // for debouncing (optional but smoother)
                 image,
                 director,
                 rating,
-                description
+                description,
+                trailerKey
             ))
         );
     }
@@ -391,8 +405,27 @@ document.addEventListener("DOMContentLoaded", async () => {
         $(".overlay-card h2").text(movieData.original_title);
         $(".overlay-card p.text-muted").text(` Rating: ${rating} / 10`);
         $(".overlay-card .smptext.mb-3").text(movieData.overview);
+
+        
+        let check = JSON.parse(localStorage.getItem('watchlist'));
+        if(check === null){
+            $(".overlay-card").append(`<button id="toAdd" class="btn btn-outline-dark w-100" onclick="AddToWatchlist('${movieData.original_title}')">Save for Later</button>`);
+        }
+        else if (check.includes(movieData.original_title)) {
+            console.log(true);
+            $(".overlay-card").append(`<div id="alreadyAdded" class="w-100">Already on your watchlist</div>`);
+        }
+        else {
+            $(".overlay-card").append(`<button id="toAdd" class="btn btn-outline-dark w-100" onclick="AddToWatchlist('${movieData.original_title}')">Save for Later</button>`);
+        }
+
     } catch (err) {
         console.error("Error loading movie details:", err);
+    }
+
+    // ADD THIS: Call the trailer fetch function AFTER fetching movie details
+    if (movieId) {
+        FetchTrailer(movieId); 
     }
 });
 
@@ -507,32 +540,44 @@ function SortMovies(type) {
     RenderMovies(); // Use the unified rendering function
 }
 
-// Search bar live filter
-document.getElementById("searchBar").addEventListener("input", function (e) {
-    currentSearch = e.target.value.toLowerCase();
-    RenderMovies();
-});
+// --- omwwww ---
 
-// Live Global Search
-document.getElementById("searchBar").addEventListener("input", (e) => {
-    const query = e.target.value.trim().toLowerCase();
+// Check if the search bar element exists and if we are NOT on the single movie page
+const searchBarElement = document.getElementById("searchBar");
+if (searchBarElement && !window.location.href.includes("single_movie_page.html")) {
+    
+    // Search bar live filter (For local filtering)
+    searchBarElement.addEventListener("input", function (e) {
+        currentSearch = e.target.value.toLowerCase();
+        RenderMovies();
+    });
 
-    if (query.length === 0) {
-        ExitSearchMode();
-        return;
-    }
+    // Live Global Search (The one that calls the API)
+    searchBarElement.addEventListener("input", (e) => {
+        const query = e.target.value.trim().toLowerCase();
 
-    // Enter Search Mode
-    searchMode = true;
-    document.getElementById("searchBackBtn").classList.remove("d-none");
+        if (query.length === 0) {
+            ExitSearchMode();
+            return;
+        }
 
-    // Show loading feedback
-    $("#movieCards").html(`<p class="text-center mt-5">Searching TMDB...</p>`);
+        // Enter Search Mode
+        searchMode = true;
+        
+        const searchBackBtn = document.getElementById("searchBackBtn");
+        if(searchBackBtn) {
+            searchBackBtn.classList.remove("d-none");
+        }
 
-    // Debounce to avoid API spam
-    clearTimeout(searchTimeout);
-    searchTimeout = setTimeout(() => SearchTMDB(query), 400);
-});
+        // Show loading feedback
+        $("#movieCards").html(`<p class="text-center mt-5">Searching TMDB...</p>`);
+
+        // Debounce to avoid API spam
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(() => SearchTMDB(query), 400);
+    });
+}
+// Note: The original rendering logic from the old SortMovies is removed here since it's now in RenderMovies
 
 async function SearchTMDB(query) {
     const url = `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(query)}&language=en-US`;
@@ -600,4 +645,57 @@ function ExitSearchMode() {
     DisplayMovies(); // restore default movie list
 }
 
+// script.js (Replace the entire existing FetchTrailer function)
+
+/**
+ * Fetches the movie trailer key from TMDB and embeds the trailer directly into the page.
+ * @param {string} movieId - The ID of the movie to fetch the trailer for.
+ */
+async function FetchTrailer(movieId) {
+    // NOTE: Using a different API key here than the main content fetch key below. 
+    // Ensure you are using a key that works for the /videos endpoint.
+    const API_KEY = "166d5942d85ad990bb05234ea9e70f3a"; 
+    // TMDB endpoint to get videos for a specific movie
+    const url_videos = `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${API_KEY}&language=en-US`;
+
+    try {
+        const response = await fetch(url_videos);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+
+        // Find the first video that is an 'official' 'Trailer' from 'YouTube'
+        const trailer = data.results.find(video => 
+            video.site === "YouTube" && video.type === "Trailer" && video.official === true
+        );
+
+        if (trailer) {
+            const trailerKey = trailer.key; 
+            
+            // Construct the standard, reliable, responsive YouTube embed HTML
+            const embedHtml = `
+                <h5 class="smptext fw-bold mb-2 mt-4">Official Trailer</h5>
+                <div style="position: relative; width: 100%; padding-top: 56.25%; margin-bottom: 20px;">
+                    <iframe 
+                        src="https://www.youtube.com/embed/${trailerKey}?rel=0&modestbranding=1&controls=1" 
+                        frameborder="0" 
+                        allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        allowfullscreen 
+                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 6px;"
+                    ></iframe>
+                </div>
+            `;
+            
+            // Append the iframe into the movie details card (.overlay-card)
+            $(".overlay-card").append(embedHtml);
+            
+        } else {
+            $(".overlay-card").append(`<p class="smptext mb-2" style="text-align: center;">Trailer not available.</p>`);
+        }
+    } catch (error) {
+        console.error("Error fetching movie trailer:", error);
+        $(".overlay-card").append(`<p class="smptext mb-2 text-danger" style="text-align: center;">Could not load trailer.</p>`);
+    }
+}
 // Note: The original rendering logic from the old SortMovies is removed here since it's now in RenderMovies
