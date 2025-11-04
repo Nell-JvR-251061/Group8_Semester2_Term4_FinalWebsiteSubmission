@@ -1,0 +1,93 @@
+/*------------------------------Marizelle CSS------------------------------*/
+
+#signBody {
+  background-color: #000000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.logo{
+  margin-bottom: 10px;
+}
+
+.form-h2{
+  margin-bottom: 10px;
+}
+
+.btn-form-primary:hover{
+  background-color: white;
+  transition-duration: 0.15s, 0.15s, 0.15s, 0.15s;
+}
+
+.form-container {
+  background-color: #e5e5e5;
+  padding: 25px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 400px;
+  color: black;
+}
+
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.form-text{
+  margin: 0;
+}
+
+.forgot-link {
+  color: black;
+  text-decoration: underline;
+}
+
+.sign-in {
+  width: 100%;
+  padding: 18px 0;
+  background-color: #14213d;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid #666;
+  margin-bottom: 20px;
+}
+
+.form-check{
+  padding: 0;
+}
+
+.Login {
+  width: 100%;
+  padding: 20px 0;
+  background-color: #fca311;
+  color: black;
+  font-weight: bold;
+  font-size: 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE-edge">
+  <meta name="viewport" content="width-device-width, initial-scale-1.0">
+
+  <meta name="author" content="The Runtime Errors">
+  <meta name="description" content="Log in to access your account securely or Sign up and join the Hive">
+  <meta name="keywords"
+    content="login, sign in, user account, secure access, authentication, profile, password, member login">
+  <title>Login | LiveHive</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <link rel="stylesheet" href="../css/bg-posters.css">
+  <link rel="stylesheet" href="../css\main.css">
+  <script type="module" src="../js/firebase.js" defer></script>
+</head>
+
+<body id="signBody">
+  <div class="poster-bg">
+    <div class="poster-track">
+
+      <div class="poster-row base-row">
+        <img
+          src="../assets/imgs/68c48d141e8381607486e3fe_66a4263d01a185d5ea22eeef_6408f676b5811234c887ca62_top2520maverick-min.png"
+          alt="">
+        <img src="../assets/imgs/81dae9nZFBS._AC_UF894,1000_QL80_.jpg" alt="">
+        <img src="../assets/imgs/61CRq2R6i4L._AC_SL1024_.jpg" alt="">
+        <img src="../assets/imgs/9wV65OmsjLAqBfDnYTkMPutXH8j.webp" alt="">
+        <img src="../assets/imgs/beauty_and_the_beast_ver5_xlg__scaled_600.jpg" alt="">
+        <img src="../assets/imgs/spider-man-far-from-home-official-movie-posters_ex7e.jpg" alt="">
+        <img src="../assets/imgs/images (1).jpeg" alt="">
+        <img src="../assets/imgs/images.jpeg" alt="">
+        <img src="../assets/imgs/61L3eGk45kL._AC_SL1500_.jpg" alt="">
+        <img src="../assets/imgs/the-expendables-2-movie-poster.jpg" alt="">
+      </div>
+
+      <div class="poster-row"></div>
+      <div class="poster-row"></div>
+      <div class="poster-row"></div>
+      <div class="poster-row"></div>
+      <div class="poster-row"></div>
+    </div>
+  </div>
+
+  <div class="overlay"></div>
+
+  <div id="signupForm" class="form-container" style="display:none">
+    <img src="../assets/imgs/LiveHive Concept Logo 1.png" width="40%" class="logo">
+    <div>
+      <h2 class="form-h2">Create an account</h2>
+
+      <form>
+        <div class="mb-3">
+          <label class="form-label">Username</label>
+          <input type="text" placeholder="Your name" class="form-control" id="inputName" required>
+          <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Email address</label>
+          <input type="email" placeholder="youremail@gmail.com" class="form-control" id="inputEmail"
+            aria-describedby="emailHelp" required>
+          <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label">Password</label>
+          <input type="password" placeholder="Password" class="form-control" id="inputPassword">
+        </div>
+        <button type="submit" class="Login btn-form-primary" id="submit-sign-in">Sign up</button>
+      </form>
+      <hr />
+      <button class="btn btn-primary sign-in" onclick="Swap()">Logging in?</button>
+    </div>
+  </div>
+
+  <div id="loginForm" class="form-container" style="display:block">
+    <img src="../assets/imgs/LiveHive Concept Logo 1.png" width="40%" class="logo">
+    <div id="formBody">
+      <h2 class="form-h2">Login to your account</h2>
+
+      <form>
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Email address</label>
+          <input type="email" placeholder="youremail@gmail.com" class="form-control" id="loginEmail"
+            aria-describedby="emailHelp" required>
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label">Password</label>
+          <input type="password" placeholder="Password" class="form-control" id="loginPassword">
+        </div>
+        <button type="submit" class="Login btn-form-primary" id="submit-login">Login</button>
+      </form>
+      <hr />
+      <button class="btn btn-primary sign-in" onclick="Swap()">Signing up?</button>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
+  <script src="../js/jQuery.js"></script>
+  <script src="../js/script.js"></script>
+  <script src="../js/poster-randomizer.js"></script>
+</body>
+
+</html>
