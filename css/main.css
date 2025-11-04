@@ -1,33 +1,61 @@
-/*Set up colour variables for ease of use*/
-:root{
-    --ccBlack: #000000;
-    --ccBlue: #14213D;
-    --ccYellow: #FCA311;
-    --ccGrey: #E5E5E5;
-    --ccWhite: #ffffff; 
+/* Tshedza CSS */
+.overlay-card {
+  background: rgba(
+    255,
+    255,
+    255,
+    0.85
+  ); /* light card; change to rgba(0,0,0,0.6) and text-white for dark */
+  border-radius: 6px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+/* Ensure the image fills and keeps aspect on small screens */
+.position-relative img.img-fluid {
+  object-fit: cover;
+  height: auto;
+  display: block;
+}
+/* Optional: reduce overlay padding on very small screens */
+@media (max-width: 420px) {
+  .overlay-card {
+    padding: 1rem;
+  }
 }
 
-body{
-    background-color: var(--ccBlack);
+/* Make hero image never exceed viewport height and center-crop when needed */
+.media-hero {
+  max-height: 100vh;
+  overflow: hidden;
+  width: 100vw;
+  /* position: relative; already set, but safe */
 }
 
-.card {
-    color: var(--ccBlack);
-    margin: 24px 12px 24px 12px;
-    background-color: var(--ccYellow);
-    border-width: thick;
-    border-color: var(--ccYellow);
+.media-hero img.img-fluid {
+  height: 100vh; /* fill viewport height */
+  width: 100%; /* span full width of container */
+  object-fit: cover; /* crop to fill while preserving aspect ratio */
+  object-position: center center; /* center the crop */
+  display: block;
 }
 
-.card h6{
-    margin-bottom: 8px;
+/* ensure overlay covers the same area and sits above the image */
+.media-hero > .position-absolute {
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+}
+.overlay-card {
+  z-index: 3;
 }
 
-.card p{
-    margin-bottom: 8px;
-    font-weight: 500;
+.smptext {
+  color: black;
 }
 
-.card:hover{
-     border-color: var(--ccGrey);
+#alreadyAdded{
+  color:#fca311;
+  text-align: center;
 }
